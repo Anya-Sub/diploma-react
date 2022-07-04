@@ -1,0 +1,24 @@
+.label-info{
+  display: flex;
+  flex-direction: column;
+
+  .label-info__card__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    .label-info__card__text__part{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 20%;
+      margin-left: 20%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .label-info__card__another{
+    display: flex;
+  }
+}

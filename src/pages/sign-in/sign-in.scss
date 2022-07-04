@@ -1,0 +1,14 @@
+.Sign-in{
+  display: flex;
+  flex-direction: column;
+
+  .Sign-in-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .Sign-in-card-account{
+      display: flex;
+    }
+  }
+}
