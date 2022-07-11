@@ -1,18 +1,29 @@
 import "../../pages/open-label/open-label.scss"
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from "../../shared/header"
 import Footer from "../../shared/footer"
 import AstronautCard from "../../shared/astronaut-card"
 import Astronaut from "../../pictures/Astronaut.png"
 import Facebook from "../../pictures/facebook.png"
 import Twitter from "../../pictures/twitter.png"
+import { routes } from "../../contsants/routes";
 const OpenLabel = () => {
-  return (
-    <>
+  const navigate = useNavigate();
+
+  const navigateBackToHome = () => {
+  navigate(routes.home);
+  };
+  return (  
+    <>  
     <Header />
     <main>
       <section className="label-info">
         <div className="label-info__home">
-           <button className="label-info__home__btn">Home</button>
+           <button className="label-info__home__btn"
+            onClick={navigateBackToHome}
+            >
+              Home
+            </button>
            <p className="label-info__home__posts">/ Post 14278</p>
         </div>
         <div className="label-info__card">

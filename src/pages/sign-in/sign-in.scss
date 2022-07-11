@@ -1,13 +1,13 @@
-.Sign-in{
+.sign-in{
   display: flex;
   flex-direction: column;
 
-  .Sign-in-card{
+  .sign-in__card{
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    .Sign-in-card-account{
+    .sign-in__card__account{
       display: flex;
     }
   }
