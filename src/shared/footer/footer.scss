@@ -1,6 +1,8 @@
 .all-info{
   display: flex;
   justify-content: space-around;
+  position: absolute;
+  width: 100%;
 
   .all-info__theme{
     display: flex;

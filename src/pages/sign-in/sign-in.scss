@@ -1,14 +1,87 @@
-.sign-in{
+.sign-in {
   display: flex;
   flex-direction: column;
+  background-color: #E5E5E5;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
 
-  .sign-in__card{
+  &__title{
+    margin-right: 600px;
+
+    &__home{
+      border: none;
+      background-color:  #E5E5E5;
+      color: #313037;
+      padding-right: 30px;
+    }
+
+    &__word{
+     font-size: 56px;
+     font-style: bold;
+    }
+  }
+
+  &__card {
+    display: flex;
+    justify-content: center;
+    background: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 50px 0;
+    width: 400px;
+    height: 320px;
+    border-radius: 20px;
 
-    .sign-in__card__account{
+    // &__account {
+    //   display: flex;
+    // }
+
+    &__questions {
       display: flex;
+      flex-direction: column;
+
+      &__forgot {
+        display: flex;
+        justify-content: start;
+        border: none;
+        background-color:rgba(255, 255, 255, 1) ;
+        font-size: 14px;
+        padding-bottom: 30px;
+        padding-top: 8px;
+      }
+
+      &__account {
+        display: flex;
+        font-size: 12px;
+        justify-content: center;
+        padding-top: 10px;
+        align-items: center;
+        
+
+        &__text {
+          color:grey;
+          margin: 0px;
+        }
+
+        &__btn{
+          color:rgba(108, 27, 219, 1) ;
+          border: none;
+          background-color: rgba(255, 255, 255, 1) ;
+          
+          
+        }
+      }
+
+      &__btn {
+        width: 300px;
+        height: 40px;
+        border: none;
+        background-color: rgba(108, 27, 219, 1);
+        color: #E5E5E5;
+        border-radius: 5px;
+      }
     }
   }
 }

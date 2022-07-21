@@ -1,0 +1,13 @@
+import { 
+  SET_THEME
+} from "../../types/isDarkTheme"
+import {
+  Theme
+} from '../../../contsants/common'
+
+export const checkIsDarkTheme = (payload: Theme) => {
+  return {
+    type: SET_THEME,
+    payload
+  }
+}

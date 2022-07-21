@@ -13,36 +13,38 @@ const SignIn = () => {
   };
   return (
     <>
-   <Header/>
+    <Header/>
       <main>
         <div className="sign-in">
-            <div className='sign-in__tittle'>
-                <button className='sign-in__tittle__home'
-                 onClick={navigateBackToHome}
-                 >
-                  Back to home
-                </button>
-                <h1 className='sign-in__tittle__word'>Sign In</h1>
-            </div>
-              <SignInInput 
-                placeholder="Email" 
+          <div className='sign-in__title'>
+              <button className='sign-in__title__home'
+                onClick={navigateBackToHome}
+                >
+                Back to home
+              </button>
+              <h1 className='sign-in__tittle__word'>Sign In</h1>
+          </div>
+          <div className='sign-in__card'> 
+            <SignInInput 
+                placeholder="Your email" 
                 label="Email" 
-              />
-              <SignInInput 
-                placeholder="Password" 
-                label="Password" 
-              />
-              <div className='sign-in__card'> 
-                  <button className='sign-in__card__forgot'>Forgot password?</button>
-                  <button className='sign-in__card__sign'>Sign In</button>
-                  <div className='sign-in__card__account'>
-                      <p className='sign-in__card__account__question'>Don’t have an account?</p>
-                      <button className='sign-in__card__account__button'>Sign Up</button>
-                  </div>
+            />
+            <SignInInput 
+              placeholder="Your password" 
+              label="Password" 
+            />
+            <div className='sign-in__card__questions'> 
+              <button className='sign-in__card__questions__forgot'>Forgot password?</button>
+              <button className='sign-in__card__questions__btn'>Sign In</button>
+              <div className='sign-in__card__questions__account'>
+                <p className='sign-in__card__questions__account__text'>Don’t have an account?</p>
+                <button className='sign-in__card__questions__account__btn'>Sign Up</button>
               </div>
+            </div>
+          </div>
         </div>     
       </main>
-   <Footer/>
+    <Footer/>
    </>
   )
 }

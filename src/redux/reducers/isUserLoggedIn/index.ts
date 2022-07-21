@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
-    case IS_USER_LOGGED_IN:
+    case IS_USER_LOGGED_IN: 
       console.log('isUserLoggedIn:', state?.isUserLoggedIn)
       return {
         ...state
