@@ -7,7 +7,9 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-
+    position: relative;
+   
+   
     .label-info__card__text__part{
       display: flex;
       flex-direction: column;
@@ -16,6 +18,7 @@
       margin-left: 20%;
       margin-top: 20px;
       margin-bottom: 20px;
+      width: 1000px;
     }
   }
   .label-info__card__another{

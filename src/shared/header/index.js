@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { routes } from "../../contsants/routes";
 import { checkIfUserIsLoggedIn, setUserLoggedIn } from "../../redux/actions/isUserLoggedIn";
 
+
 const Header = ({
   checkIfUserIsLoggedIn,
   setUserLoggedIn
@@ -29,7 +30,7 @@ const Header = ({
           <button className="All-info__button__form"
             onClick={navigateToHome}
           >
-            <p>BLOGOLOGO</p>
+             <img src={Logo} />
           </button>
         </div>
         <div className="All-ifo__person">
@@ -37,12 +38,14 @@ const Header = ({
             <input type="search" id="site-search" name="q" />
             <img src={Search} />
           </div>
-          <div className="All-ifo__person__logo"></div>
-          <div className="All-ifo__person__logo__initial">Artem Malkhin</div>
+          <div className="All-ifo__person__logo">
           <button onClick={() => {
             setUserLoggedIn()
             checkIfUserIsLoggedIn()
-          }}>TEST BUTTON FOR REGISTRAION</button>
+          }}>AM</button>
+          </div>
+          <div className="All-ifo__person__logo__initial">Artem Malkhin</div>
+         
         </div>
       </div>
     </header>

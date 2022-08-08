@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 import Header from "../../shared/header"
 import Footer from "../../shared/footer"
 import AstronautCard from "../../shared/astronaut-card"
@@ -8,77 +11,38 @@ import Next from "../../pictures/Next.png"
 
 
 const Main = () => {
+  const [cardData, setCardData] = useState([]);
+  const url = 'https://api.spaceflightnewsapi.net/v3/blogs';
+
+
+  useEffect(() => {
+    axios.get(url)
+      .then((response) => setCardData(response.data))
+      .catch((error) => alert(error))
+  }, []);
+
+  useEffect(() => {
+    console.log('In update phase: ', cardData)
+  }, [cardData])
+
   return (
     <>
       <Header />
         <main>
           <div className="astronaut-cards">
-            <div className="astronaut-cards__part">
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-            </div>
-            <div className="astronaut-cards-part">
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-            </div>
-            <div className="astronaut-cards__part">
-                <AstronautCard 
-                    image={Astronaut} 
-                    data="April 20, 2021" 
-                    content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
+            <ul>
+              {cardData.map(item => {
+                const { id, imageUrl, publishedAt, title} = item;
+
+                return <li key={id}>
+                  <AstronautCard 
+                    image={imageUrl} 
+                    data={publishedAt} 
+                    content={title}
                   />
-                <AstronautCard 
-                    image={Astronaut} 
-                    data="April 20, 2021" 
-                    content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                  />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-                <AstronautCard 
-                  image={Astronaut} 
-                  data="April 20, 2021" 
-                  content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-                />
-            </div>  
+                </li>
+              })}
+            </ul>
           </div> 
           <div className="navigation">
             <div className="navigation-previous">

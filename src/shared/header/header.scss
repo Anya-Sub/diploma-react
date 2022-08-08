@@ -13,6 +13,42 @@
     background-color: red;
   }
   .All-info__button__form{
-   background-color: yellow;
+
+    border: none;
+    width: 80px;
+    height: 40px;
+    img{
+      width: 110px;
+      height: 40px;
+    }
+   
+   
+  }
+  .All-ifo__person__search{
+    width: 900px;
+    
+    input{
+      width: 800px;
+      margin-left: 10px;
+      border: none;
+    }
+  }
+  .All-ifo__person__logo{
+    button{
+      display: flex;
+      align-items: center;
+      background-image: url(../../pictures/namee.png);
+      border: none;
+      height: 30px;
+      margin-top: 2px;
+    }
+    &__initial{
+      display: flex;
+      margin-left: 10px;
+      margin-top: 5px;
+      color: rgba(49, 48, 55, 1);
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
 }
