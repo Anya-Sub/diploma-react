@@ -1,8 +1,8 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { routes } from "../../contsants/routes";
-import './astronaut-card.scss';
+import './post-card.scss';
 
-const AstronautCard = (props) => {
+const PostCard = (props) => {
   const navigate = useNavigate();
 
   const navigateToOpenLabel = () => {
@@ -12,14 +12,14 @@ const AstronautCard = (props) => {
 
   return ( 
     <div 
-      className="astronaut-card"
+      className="card"
       onClick={navigateToOpenLabel}
     >
-      {props.image && <img src={props.image} alt="astronaut-image" />}
-      {props.data && <p>{props.data}</p>}
-      {props.content && <p>{props.content}</p>}
+      {props.image && <img src={props.image} alt="post-image" />}
+      {props.data && <p className='card-data'>{props.data}</p>}
+      {props.content && <p className='card-text'>{props.content}</p>}
     </div>
   )
 };
 
-export default AstronautCard;
+export default PostCard;

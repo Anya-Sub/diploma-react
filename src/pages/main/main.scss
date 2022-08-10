@@ -1,4 +1,25 @@
-.astronaut-cards{
+main{
+  background-color: #E5E5E5;
+
+  .main-container {
+    margin: 0 15%;
+  }
+}
+
+.post-cards-list {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+
+
+  li {
+    list-style: none;
+    flex: 0 0 33.333333%;
+    width: 120vw;
+  }
+}
+.post-cards-pagination{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }

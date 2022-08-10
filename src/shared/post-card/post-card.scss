@@ -1,0 +1,43 @@
+// .navigation{
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-around;
+
+//   .navigation-previous{
+//     display: flex;
+//   }
+//   .navigation-next{
+//     display: flex;
+//   }
+// }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border-radius: 13px 13px 10px 10px;
+  height: 90%;
+
+  img {
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+    height: 150px;
+  }
+  
+  .card-data{
+    margin-left: 15px;
+    text-align: start;
+    color:rgba(49, 48, 55, 0.5);
+    margin-top: 5px;
+    font-size: 14px;
+    
+  }
+  .card-text{
+    margin-left: 15px;
+    text-align: start;
+    font-size: 16px;
+    color:rgba(49, 48, 55, 1);
+    margin-bottom: 15px;
+  }
+ 
+}

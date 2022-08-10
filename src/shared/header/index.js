@@ -11,13 +11,20 @@ import { checkIfUserIsLoggedIn, setUserLoggedIn } from "../../redux/actions/isUs
 
 const Header = ({
   checkIfUserIsLoggedIn,
-  setUserLoggedIn
+  setUserLoggedIn,
+  cardData,
+  setPostsPerPage
 }) => {
   const navigate = useNavigate();
 
   const navigateToHome = () => {
     navigate(routes.home);
   };
+
+  const handleSearch = (event) => {
+    setPostsPerPage( cardData.filter((item) => item.title.includes(event.target.value)));
+    
+  }
 
   useEffect(() => {
     checkIfUserIsLoggedIn()
@@ -30,22 +37,25 @@ const Header = ({
           <button className="All-info__button__form"
             onClick={navigateToHome}
           >
-             <img src={Logo} />
+            <img src={Logo} />
           </button>
         </div>
-        <div className="All-ifo__person">
-          <div className="All-ifo__person__search">
-            <input type="search" id="site-search" name="q" />
+        <div className="All-info__person">
+          <div className="All-info__person__search">
+            <input 
+              type="search" 
+              id="site-search" 
+              onChange={(event) => handleSearch(event)}
+            />
             <img src={Search} />
           </div>
-          <div className="All-ifo__person__logo">
-          <button onClick={() => {
-            setUserLoggedIn()
-            checkIfUserIsLoggedIn()
-          }}>AM</button>
+          <div className="All-info__person__logo">
+            <button onClick={() => {
+              setUserLoggedIn()
+              checkIfUserIsLoggedIn()
+            }}>AM</button>
           </div>
-          <div className="All-ifo__person__logo__initial">Artem Malkhin</div>
-         
+          <div className="All-info__person__logo__initial">Artem Malkhin</div>
         </div>
       </div>
     </header>

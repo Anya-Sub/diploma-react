@@ -3,39 +3,74 @@ import axios from 'axios';
 
 import Header from "../../shared/header"
 import Footer from "../../shared/footer"
-import AstronautCard from "../../shared/astronaut-card"
-import Astronaut from "../../pictures/Astronaut.png"
+import Pagination from "../../shared/pagination";
+import PostCard from "../../shared/post-card"
 import "../main/main.scss"
-import Previous from "../../pictures/Previous.png"
-import Next from "../../pictures/Next.png"
 
 
 const Main = () => {
   const [cardData, setCardData] = useState([]);
-  const url = 'https://api.spaceflightnewsapi.net/v3/blogs';
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagesAmount, setPagesAmount] = useState(0);
+  const [postsPerPage, setPostsPerPage] = useState([]);
+  const requestLimit = 120;
+  const pageLimit = 12;
+  const url = `https://api.spaceflightnewsapi.net/v3/articles?_limit=${requestLimit}`;
 
+  const calculatePostsPerPage = () => {
+    let start = 0
+    let end = pageLimit;
+
+    if (currentPage === 1) {
+      start = currentPage - 1;
+      end = start + pageLimit;
+    } else {
+      start = (currentPage - 1) * pageLimit;
+      end = start + pageLimit;
+    }
+
+    setPostsPerPage(cardData.slice(start, end))
+  };
 
   useEffect(() => {
     axios.get(url)
-      .then((response) => setCardData(response.data))
+      .then((response) => {
+        setCardData(response.data);
+        setTotalCount(response.data.length);
+      })
       .catch((error) => alert(error))
   }, []);
 
   useEffect(() => {
+    setPagesAmount(Math.ceil(totalCount / pageLimit))
+  }, [totalCount]);
+
+  useEffect(() => {
     console.log('In update phase: ', cardData)
-  }, [cardData])
+    console.log('Total Count: ', totalCount)
+    console.log('Pages amount', pagesAmount)
+    calculatePostsPerPage()
+  }, [cardData, currentPage]);
+
+  useEffect(() => {
+    console.log('currentPage: ', currentPage)
+  }, [currentPage])
 
   return (
     <>
-      <Header />
+      <Header 
+        cardData={cardData} 
+        setPostsPerPage={setPostsPerPage}
+      />
         <main>
-          <div className="astronaut-cards">
-            <ul>
-              {cardData.map(item => {
+          <div className="main-container">
+            <ul className="post-cards-list">
+              {postsPerPage.map(item => {
                 const { id, imageUrl, publishedAt, title} = item;
 
                 return <li key={id}>
-                  <AstronautCard 
+                  <PostCard 
                     image={imageUrl} 
                     data={publishedAt} 
                     content={title}
@@ -43,24 +78,13 @@ const Main = () => {
                 </li>
               })}
             </ul>
-          </div> 
-          <div className="navigation">
-            <div className="navigation-previous">
-              <button className="navigation-previous__btn"><img src={Previous} alt="prev"></img></button>
-              <p className="navigation-previous__text">Prev</p>
-            </div>
-            <div className="navigation-list">
-              <button className="navigation-list__number">1</button>
-              <button className="navigation-list__number">2</button>
-              <button className="navigation-list__number">3</button>
-              <button className="navigation-list__number">...</button>
-              <button className="navigation-list__number">6</button>
-            </div>
-            <div className="navigation-next">
-              <p className="navigation-next__text">Next</p>
-              <button className="navigation-next__btn"><img src={Next} alt="next"></img> </button>
-            </div>
-          </div>    
+            <Pagination 
+              pageLimit={pageLimit}
+              requestLimit={requestLimit}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </main>   
       <Footer />
     </>
