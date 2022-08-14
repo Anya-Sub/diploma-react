@@ -22,41 +22,39 @@ const Header = ({
   };
 
   const handleSearch = (event) => {
-    setPostsPerPage( cardData.filter((item) => item.title.includes(event.target.value)));
-    
-  }
-
-  useEffect(() => {
-    checkIfUserIsLoggedIn()
-  }, [])
+    setPostsPerPage(cardData.filter((item) => item.title.includes(event.target.value)));
+  };
 
   return (
     <header>
       <div className="All-info">
-        <div className="All-info__button">
-          <button className="All-info__button__form"
-            onClick={navigateToHome}
-          >
-            <img src={Logo} />
-          </button>
-        </div>
-        <div className="All-info__person">
-          <div className="All-info__person__search">
+        <section className="All-info__logo">
+           <button className="All-info__logo__button"
+              onClick={navigateToHome}
+            >
+              <img src={Logo} />
+            </button>
+        </section>
+        <section className="All-info__action">
+          <div className="All-info__action__searching">
             <input 
-              type="search" 
-              id="site-search" 
-              onChange={(event) => handleSearch(event)}
-            />
+                type="search" 
+                id="site-search" 
+                onChange={(event) => handleSearch(event)}
+              />
             <img src={Search} />
           </div>
-          <div className="All-info__person__logo">
+          <div className="All-info__action__registration">
             <button onClick={() => {
-              setUserLoggedIn()
-              checkIfUserIsLoggedIn()
-            }}>AM</button>
+                setUserLoggedIn()
+                checkIfUserIsLoggedIn()
+              }}>AM</button>
+            <div className="All-info__action__registration__words">
+               <p>Artem</p>
+               <p>Malkhin</p>
+            </div>
           </div>
-          <div className="All-info__person__logo__initial">Artem Malkhin</div>
-        </div>
+        </section>
       </div>
     </header>
   )
