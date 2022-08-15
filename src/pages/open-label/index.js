@@ -28,9 +28,9 @@ const OpenLabel = (props) => {
     )
   }, []);
 
-  useEffect(() => {
-    console.log('test', selectedPost)
-  }, [selectedPost])
+  // useEffect(() => {
+  //   console.log('test', selectedPost)
+  // }, [selectedPost])
 
 
   return (  

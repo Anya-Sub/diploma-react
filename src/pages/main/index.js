@@ -15,9 +15,10 @@ const Main = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesAmount, setPagesAmount] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState([]);
+  const [currentDate, setCurrentDate] = useState({});
   const pageLimit = 12;
 
-  const calculatePostsPerPage = () => {
+  const calculatePostsPerPage = (targetArr) => {
     let start = 0
     let end = pageLimit;
 
@@ -29,24 +30,63 @@ const Main = ({
       end = start + pageLimit;
     }
 
-    setPostsPerPage(cardData.slice(start, end))
+    setPostsPerPage(targetArr.slice(start, end))
   };
 
+  const sorting = {
+    getByDay: () => {
+      console.log('Sorting by day')
+      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getDate() === currentDate.day))
+    },
+    getByMonth: () => {
+      console.log('Sorting by month')
+      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getMonth() + 1 === currentDate.month))
+    },
+    getByYear: () =>  {
+      console.log('Sorting by year')
+      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getFullYear() === currentDate.year))
+
+    },
+    getByAlphabetAscending: () => {
+      console.log('Sorting by alphabet Ascending')
+      calculatePostsPerPage(cardData.sort((x, y) => {
+        if (x.title < y.title) {return -1;}
+        if (x.title > y.title) {return 1;}
+        return 0;
+      }))
+    },
+    getByAlphabetDescending: () => {
+      console.log('Sorting by alphabet Descending')
+      calculatePostsPerPage(cardData.sort((x, y) => {
+        if (x.title < y.title) {return 1;}
+        if (x.title > y.title) {return -1;}
+        return 0;
+      }))
+    }
+  }
+
+  useEffect(() => {
+    setCurrentDate({
+      day: new Date().getDate(),
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear()
+    })
+  }, []);
 
   useEffect(() => {
     setPagesAmount(Math.ceil(totalCount / pageLimit))
   }, [totalCount]);
 
   useEffect(() => {
-    // console.log('In update phase: ', cardData)
+    console.log('In update phase: ', cardData)
     // console.log('Total Count: ', totalCount)
     // console.log('Pages amount', pagesAmount)
-    calculatePostsPerPage()
+    calculatePostsPerPage(cardData)
   }, [cardData, currentPage]);
 
-  // useEffect(() => {
-  //   console.log('currentPage: ', currentPage)
-  // }, [currentPage])
+   useEffect(() => {
+    sorting.getByAlphabetAscending();
+   }, [cardData])
 
   return (
     <>
@@ -56,6 +96,30 @@ const Main = ({
       />
         <main>
           <div className="main-container">
+            <section className="main-container__sorting">
+              <div className="main-container__sorting__button">
+                <button onClick={() => sorting.getByDay()}>Day</button>
+                <button onClick={() => sorting.getByMonth()}>Month</button>
+                <button onClick={() => sorting.getByYear()}>Year</button>
+              </div>
+              <div className="main-container__sorting__select">
+                <select 
+                  name="sorting" 
+                  id="sorting-dropdown" 
+                  onChange={(selected) => {
+                    if (selected.target.value === 'A-Z') {
+                    sorting.getByAlphabetAscending();
+                    } else {
+                    sorting.getByAlphabetDescending();
+                    }
+                  }
+                }
+                >
+                  <option value="A-Z">Title A-Z</option>
+                  <option value="Z-A">Title Z-A</option>
+                </select>
+              </div>
+            </section>
             <ul className="post-cards-list">
               {postsPerPage.map(item => {
                 const { id, imageUrl, publishedAt, title} = item;

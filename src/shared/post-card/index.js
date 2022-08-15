@@ -5,7 +5,7 @@ import './post-card.scss';
 const PostCard = (props) => {
   const navigate = useNavigate();
 
-  console.log(2, props)
+  // console.log(2, props)
 
   const navigateToOpenLabel = () => {
     navigate(routes.openLabel);
