@@ -58,7 +58,7 @@ const SignIn = ({
               <button 
                 className='sign-in__card__questions__btn'
                 onClick={() => saveAndRedirectUser()}
-                disabled={!emailData && !passwordData}
+                disabled={!emailData || !passwordData}
               >
                 Sign In
               </button>

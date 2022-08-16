@@ -58,7 +58,7 @@ const Header = ({
           <div className="All-info__action__registration">
             {userName &&
               <div className="All-info__action__registration__short">
-                {userName?.toUpperCase()}
+                {userName[0].toUpperCase()}
               </div>
             }
             <div className="All-info__action__registration__words">
