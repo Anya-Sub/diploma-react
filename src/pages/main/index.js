@@ -4,6 +4,7 @@ import Footer from "../../shared/footer"
 import Pagination from "../../shared/pagination";
 import PostCard from "../../shared/post-card"
 import "../main/main.scss"
+import Line from "../../pictures/line.png"
 
 
 const Main = ({
@@ -96,6 +97,14 @@ const Main = ({
       />
         <main>
           <div className="main-container">
+            <section className="main-container__title">
+             <h1>Blog</h1>
+             <div className="main-container__title__manage">
+                <button className="main-container__title__manage__btn">Articles</button>
+                <button className="main-container__title__manage__btn">News</button>
+             </div>
+             <img src={Line} alt="Line" className="label-info__image"></img>
+            </section>
             <section className="main-container__sorting">
               <div className="main-container__sorting__button">
                 <button onClick={() => sorting.getByDay()}>Day</button>
@@ -115,8 +124,8 @@ const Main = ({
                   }
                 }
                 >
-                  <option value="A-Z">Title A-Z</option>
-                  <option value="Z-A">Title Z-A</option>
+                  <option value="A-Z"> Sort: Title A-Z</option>
+                  <option value="Z-A">Sort: Title Z-A</option>
                 </select>
               </div>
             </section>
