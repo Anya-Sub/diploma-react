@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { routes } from "../../contsants/routes";
 import { connect } from "react-redux";
 import { setSavedPostId } from "../../redux/actions/postsData";
 import './post-card.scss';
@@ -11,8 +13,10 @@ const PostCard = ({
   showOpenCard,
   setSavedPostId,
 }) => {
+  const navigate = useNavigate();
 
   const navigateToOpenLabel = () => {
+    navigate(routes.openLabel);
     setSavedPostId(id);
   };
 

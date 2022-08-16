@@ -13,7 +13,7 @@ import { user } from '../../contsants/localStorage';
 
 const Header = ({
   checkIfUserIsLoggedIn,
-  cardData,
+  posts,
   setPostsPerPage
 }) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Header = ({
   };
 
   const handleSearch = (event) => {
-    setPostsPerPage(cardData.filter((item) => item.title.includes(event.target.value)));
+    setPostsPerPage(posts.filter((item) => item.title.includes(event.target.value)));
   };
 
   useEffect(() => {
@@ -72,8 +72,10 @@ const Header = ({
 };
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     checkIfUserIsLoggedIn: state.isUserLoggedIn,
+    posts: state.postsData.postsData,
     ...state
   }
 }

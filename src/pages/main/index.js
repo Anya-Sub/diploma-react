@@ -8,11 +8,9 @@ import Line from "../../pictures/line.png"
 import { connect } from "react-redux";
 import { request } from '../../contsants/requestLimits';
 import { useNavigate } from 'react-router-dom';
-import { routes } from "../../contsants/routes";
 
 const Main = ({
-  posts,
-  savedPostId
+  posts
 }) => {
   const navigate = useNavigate();
 
@@ -75,23 +73,16 @@ const Main = ({
     calculatePostsPerPage(posts)
   }, [posts, currentPage]);
 
-   useEffect(() => {
+  useEffect(() => {
     sorting.getByAlphabetAscending();
-   }, [posts])
+  }, [posts])
 
-   useEffect(() => {
-    if (savedPostId) {
-      navigate(routes.openLabel);
-    }
-
-   }, [savedPostId])
 
   return (
     <>
-      {/* <Header 
-        posts={posts} 
+      <Header 
         setPostsPerPage={setPostsPerPage}
-      /> */}
+      />
         <main>
           <div className="main-container">
             <section className="main-container__title">
@@ -156,15 +147,8 @@ const Main = ({
 const mapStateToProps = (state: any) => {
   return {
     posts: state.postsData.postsData,
-    savedPostId: state.postsData.savedPostId,
     ...state
   }
 };
-
-// const mapDispatchToProps = (dispatch: any) => {
-//   return {
-//     setSavedPostId: (payload) => setSavedPostId(dispatch, payload)
-//   }
-// };
 
 export default connect(mapStateToProps)(Main);
