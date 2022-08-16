@@ -31,7 +31,7 @@ const Main = ({
       end = start + pageLimit;
     }
 
-    setPostsPerPage(targetArr.slice(start, end))
+    setPostsPerPage(targetArr?.slice(start, end))
   };
 
   const sorting = {

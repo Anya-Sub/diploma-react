@@ -4,14 +4,15 @@ import { Routes, Route } from "react-router-dom";
 import Main from "./pages/main";
 import OpenLabel from "./pages/open-label";
 import SignIn from "./pages/sign-in";
-import { testFunc } from "./redux/actions/test";
+import { setPostsData } from "./redux/actions/postsData";
 import { connect } from "react-redux";
 import { routes } from "./contsants/routes"
 
 import './App.css';
 
 function App({
-  testFunc
+  setPostsData,
+  postsData
 }: any) {
   const [cardData, setCardData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -23,6 +24,7 @@ function App({
     axios.get(url)
       .then((response) => {
         setCardData(response.data);
+        setPostsData(response.data)
         setTotalCount(response.data.length);
       })
       .catch((error) => alert(error))
@@ -37,7 +39,7 @@ function App({
       <Routes>
         <Route path={routes.home} element={
           <Main 
-            cardData={cardData}
+            cardData={postsData.postsData}
             totalCount={totalCount}
             requestLimit={requestLimit}
             setSavedPostId={setSavedPostId}
@@ -56,14 +58,14 @@ function App({
 
 const mapStateToProps = (state: any) => {
   return {
-    testFunc: state.testFunc,
+    setPostsData: state.setPostsData,
     ...state
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    testFunc: () => testFunc(dispatch)
+    setPostsData: (payload) => setPostsData(dispatch, payload)
   }
 }
 
