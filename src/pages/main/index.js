@@ -6,17 +6,17 @@ import PostCard from "../../shared/post-card"
 import "../main/main.scss"
 import Line from "../../pictures/line.png"
 import { connect } from "react-redux";
-import { setSavedPostId } from "../../redux/actions/postsData";
 import { request } from '../../contsants/requestLimits';
+import { useNavigate } from 'react-router-dom';
+import { routes } from "../../contsants/routes";
 
 const Main = ({
-  totalCount,
   posts,
-  setSavedPostId,
-  setPostsData
+  savedPostId
 }) => {
+  const navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesAmount, setPagesAmount] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState([]);
   const [currentDate, setCurrentDate] = useState({});
   const pageLimit = 12;
@@ -38,20 +38,15 @@ const Main = ({
 
   const sorting = {
     getByDay: () => {
-      console.log('Sorting by day')
       calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getDate() === currentDate.day))
     },
     getByMonth: () => {
-      console.log('Sorting by month')
       calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getMonth() + 1 === currentDate.month))
     },
     getByYear: () =>  {
-      console.log('Sorting by year')
       calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getFullYear() === currentDate.year))
-
     },
     getByAlphabetAscending: () => {
-      console.log('Sorting by alphabet Ascending')
       calculatePostsPerPage(posts.sort((x, y) => {
         if (x.title < y.title) {return -1;}
         if (x.title > y.title) {return 1;}
@@ -59,7 +54,6 @@ const Main = ({
       }))
     },
     getByAlphabetDescending: () => {
-      console.log('Sorting by alphabet Descending')
       calculatePostsPerPage(posts.sort((x, y) => {
         if (x.title < y.title) {return 1;}
         if (x.title > y.title) {return -1;}
@@ -76,20 +70,21 @@ const Main = ({
     })
   }, []);
 
-  useEffect(() => {
-    setPagesAmount(Math.ceil(totalCount / pageLimit))
-  }, [posts]);
 
   useEffect(() => {
-    console.log('In update phase: ', posts)
-    // console.log('Total Count: ', totalCount)
-    // console.log('Pages amount', pagesAmount)
     calculatePostsPerPage(posts)
   }, [posts, currentPage]);
 
    useEffect(() => {
     sorting.getByAlphabetAscending();
    }, [posts])
+
+   useEffect(() => {
+    if (savedPostId) {
+      navigate(routes.openLabel);
+    }
+
+   }, [savedPostId])
 
   return (
     <>
@@ -141,7 +136,6 @@ const Main = ({
                     image={imageUrl} 
                     data={publishedAt} 
                     content={title}
-                    setSavedPostId={setSavedPostId}
                   />
                 </li>
               })}
@@ -162,14 +156,15 @@ const Main = ({
 const mapStateToProps = (state: any) => {
   return {
     posts: state.postsData.postsData,
+    savedPostId: state.postsData.savedPostId,
     ...state
   }
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    setSavedPostId: (payload) => setSavedPostId(dispatch, payload)
-  }
-};
+// const mapDispatchToProps = (dispatch: any) => {
+//   return {
+//     setSavedPostId: (payload) => setSavedPostId(dispatch, payload)
+//   }
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);

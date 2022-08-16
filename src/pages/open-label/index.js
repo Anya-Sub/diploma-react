@@ -3,35 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../../shared/header"
 import Footer from "../../shared/footer"
 import PostCard from "../../shared/post-card"
-import Astronaut from "../../pictures/Astronaut.png"
 import Facebook from "../../pictures/facebook.png"
 import Twitter from "../../pictures/twitter.png"
 import Line from "../../pictures/line.png"
 import { routes } from "../../contsants/routes";
-import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
-const OpenLabel = (props) => {
-  const [selectedPost, setSelectedPost] = useState({});
-
+const OpenLabel = ({
+  posts,
+  selectedPostById
+}) => {
   const navigate = useNavigate();
 
   const navigateBackToHome = () => {
     navigate(routes.home);
   };
-
-  useEffect(() => {
-    setSelectedPost(props.cardData.find((item) => {
-      if (item.id === props.savedPostId) {
-        return item
-      }}
-      )
-    )
-  }, []);
-
-  // useEffect(() => {
-  //   console.log('test', selectedPost)
-  // }, [selectedPost])
-
 
   return (  
     <>  
@@ -43,16 +29,16 @@ const OpenLabel = (props) => {
             className="label-info__home__btn"
             onClick={navigateBackToHome}
           >
-              Home
+            Home
           </button>
-          <p className="label-info__home__posts">/ Post {selectedPost.id}</p>
+          <p className="label-info__home__posts">/ Post {selectedPostById?.id}</p>
         </div>
         <div className="label-info__card">
           <PostCard
-            selectedPostId={selectedPost.id}
-            title={selectedPost.title}
-            image={selectedPost.imageUrl} 
-            content={selectedPost.summary}
+            selectedPostId={selectedPostById?.id}
+            title={selectedPostById?.title}
+            image={selectedPostById?.imageUrl} 
+            content={selectedPostById?.summary}
             showOpenCard={true}
           />
         </div>
@@ -63,21 +49,20 @@ const OpenLabel = (props) => {
         </div>
         <img src={Line} alt="Line" className="label-info__image__one"></img>
         <div className="label-info__card__another">
-          <PostCard
-            image={Astronaut} 
-            data="April 20, 2021" 
-            content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-          />
-          <PostCard 
-            image={Astronaut} 
-            data="April 20, 2021" 
-            content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-          />
-          <PostCard 
-            image={Astronaut} 
-            data="April 20, 2021" 
-            content ="Astronauts prep for new solar arrays on nearly seven-hour spacewalk"
-          />
+          <ul>
+            {posts.slice(0, 3).map(item => {
+              const { id, imageUrl, publishedAt, title} = item;
+
+              return <li key={id}>
+                  <PostCard
+                    id={id}
+                    image={imageUrl} 
+                    data={publishedAt} 
+                    content={title}
+                  />
+                </li>
+              })}
+          </ul>
         </div>
       </section>
     </main>
@@ -86,4 +71,14 @@ const OpenLabel = (props) => {
   )
 }
 
-export default OpenLabel;
+const mapStateToProps = (state: any) => {
+  return {
+    posts: state.postsData.postsData,
+    savedPostId: state.postsData.savedPostId,
+    selectedPostById: state.postsData.selectedPostById,
+    ...state
+  }
+};
+
+export default connect(mapStateToProps)(OpenLabel);
+

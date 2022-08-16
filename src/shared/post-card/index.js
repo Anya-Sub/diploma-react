@@ -1,37 +1,53 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { routes } from "../../contsants/routes";
+import { connect } from "react-redux";
+import { setSavedPostId } from "../../redux/actions/postsData";
 import './post-card.scss';
 
-const PostCard = (props) => {
-  const navigate = useNavigate();
-
-  // console.log(2, props)
+const PostCard = ({
+  id,
+  image,
+  title,
+  data,
+  content,
+  showOpenCard,
+  setSavedPostId,
+}) => {
 
   const navigateToOpenLabel = () => {
-    navigate(routes.openLabel);
-    props.setSavedPostId(props.id);
+    setSavedPostId(id);
   };
 
   return (
     <>
-      {!props.showOpenCard ?
+      {!showOpenCard ?
         <div 
           className="card"
           onClick={navigateToOpenLabel}
         >
-        {props.image && <img src={props.image} alt="post-image" />}
-        {props.data && <p className='card-data'>{props.data}</p>}
-        {props.content && <p className='card-text'>{props.content}</p>}
+        {image && <img src={image} alt="post-image" />}
+        {data && <p className='card-data'>{data}</p>}
+        {content && <p className='card-text'>{content}</p>}
       </div>
       : 
       <div className='open-card'>
-        {props.title && <h1 className='open-card__title'>{props.title}</h1>}
-        {props.image && <img src={props.image} alt="open-card__image" />}
-        {props.content && <p className='open-card__content'>{props.content}</p>}
+        {title && <h1 className='open-card__title'>{title}</h1>}
+        {image && <img src={image} alt="open-card__image" />}
+        {content && <p className='open-card__content'>{content}</p>}
       </div>
     }
     </>
   )
 };
 
-export default PostCard;
+const mapStateToProps = (state: any) => {
+  return {
+    ...state
+  }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSavedPostId: (payload) => setSavedPostId(dispatch, payload)
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostCard);

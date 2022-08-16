@@ -41,10 +41,8 @@ function App({
           <Main />
         }/>
         <Route path={routes.openLabel} element={
-        <OpenLabel
-          savedPostId={savedPostId}
-          cardData={posts}
-        />}/>
+          <OpenLabel />
+        }/>
         <Route path={routes.signIn} element={<SignIn />}/>
       </Routes>
     </div>

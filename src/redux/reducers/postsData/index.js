@@ -5,7 +5,8 @@ import {
 
 const INITIAL_STATE = {
   postsData: [],
-  savedPostId: undefined
+  savedPostId: undefined,
+  selectedPostById: {}
 };
 
 const reducer = (state = INITIAL_STATE, action: any) => {
@@ -17,7 +18,9 @@ const reducer = (state = INITIAL_STATE, action: any) => {
 
     case SET_SAVED_POST_ID:
       return {
-        ...state, savedPostId: action.payload
+        ...state, 
+        savedPostId: action.payload,
+        selectedPostById: state.postsData.find((item) => item?.id === action.payload)
       }
     default: return state;
   }
