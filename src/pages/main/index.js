@@ -5,13 +5,15 @@ import Pagination from "../../shared/pagination";
 import PostCard from "../../shared/post-card"
 import "../main/main.scss"
 import Line from "../../pictures/line.png"
-
+import { connect } from "react-redux";
+import { setSavedPostId } from "../../redux/actions/postsData";
+import { request } from '../../contsants/requestLimits';
 
 const Main = ({
-  cardData,
   totalCount,
-  requestLimit,
-  setSavedPostId
+  posts,
+  setSavedPostId,
+  setPostsData
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesAmount, setPagesAmount] = useState(0);
@@ -37,20 +39,20 @@ const Main = ({
   const sorting = {
     getByDay: () => {
       console.log('Sorting by day')
-      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getDate() === currentDate.day))
+      calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getDate() === currentDate.day))
     },
     getByMonth: () => {
       console.log('Sorting by month')
-      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getMonth() + 1 === currentDate.month))
+      calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getMonth() + 1 === currentDate.month))
     },
     getByYear: () =>  {
       console.log('Sorting by year')
-      calculatePostsPerPage(cardData.filter((item) => new Date(item.updatedAt).getFullYear() === currentDate.year))
+      calculatePostsPerPage(posts.filter((item) => new Date(item.updatedAt).getFullYear() === currentDate.year))
 
     },
     getByAlphabetAscending: () => {
       console.log('Sorting by alphabet Ascending')
-      calculatePostsPerPage(cardData.sort((x, y) => {
+      calculatePostsPerPage(posts.sort((x, y) => {
         if (x.title < y.title) {return -1;}
         if (x.title > y.title) {return 1;}
         return 0;
@@ -58,7 +60,7 @@ const Main = ({
     },
     getByAlphabetDescending: () => {
       console.log('Sorting by alphabet Descending')
-      calculatePostsPerPage(cardData.sort((x, y) => {
+      calculatePostsPerPage(posts.sort((x, y) => {
         if (x.title < y.title) {return 1;}
         if (x.title > y.title) {return -1;}
         return 0;
@@ -76,25 +78,25 @@ const Main = ({
 
   useEffect(() => {
     setPagesAmount(Math.ceil(totalCount / pageLimit))
-  }, [totalCount]);
+  }, [posts]);
 
   useEffect(() => {
-    console.log('In update phase: ', cardData)
+    console.log('In update phase: ', posts)
     // console.log('Total Count: ', totalCount)
     // console.log('Pages amount', pagesAmount)
-    calculatePostsPerPage(cardData)
-  }, [cardData, currentPage]);
+    calculatePostsPerPage(posts)
+  }, [posts, currentPage]);
 
    useEffect(() => {
     sorting.getByAlphabetAscending();
-   }, [cardData])
+   }, [posts])
 
   return (
     <>
-      <Header 
-        cardData={cardData} 
+      {/* <Header 
+        posts={posts} 
         setPostsPerPage={setPostsPerPage}
-      />
+      /> */}
         <main>
           <div className="main-container">
             <section className="main-container__title">
@@ -146,7 +148,7 @@ const Main = ({
             </ul>
             <Pagination 
               pageLimit={pageLimit}
-              requestLimit={requestLimit}
+              requestLimit={request.limit}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
@@ -157,4 +159,17 @@ const Main = ({
   )
 }
 
-export default Main;
+const mapStateToProps = (state: any) => {
+  return {
+    posts: state.postsData.postsData,
+    ...state
+  }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSavedPostId: (payload) => setSavedPostId(dispatch, payload)
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

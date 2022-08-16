@@ -7,25 +7,21 @@ import SignIn from "./pages/sign-in";
 import { setPostsData } from "./redux/actions/postsData";
 import { connect } from "react-redux";
 import { routes } from "./contsants/routes"
+import { request } from './contsants/requestLimits';
 
 import './App.css';
 
 function App({
   setPostsData,
-  postsData
+  posts
 }: any) {
-  const [cardData, setCardData] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
   const [savedPostId, setSavedPostId] = useState(undefined);
-  const requestLimit = 120;
-  const url = `https://api.spaceflightnewsapi.net/v3/articles?_limit=${requestLimit}`;
+  const url = `https://api.spaceflightnewsapi.net/v3/articles?_limit=${request.limit}`;
 
   useEffect(() => {
     axios.get(url)
       .then((response) => {
-        setCardData(response.data);
         setPostsData(response.data)
-        setTotalCount(response.data.length);
       })
       .catch((error) => alert(error))
   }, []);
@@ -34,21 +30,20 @@ function App({
     console.log('Selected ID: ', savedPostId)
   }, [savedPostId])
 
+  useEffect(() => {
+    console.log('Posts in app', posts)
+  }, [posts])
+
   return (
     <div className="App">
       <Routes>
         <Route path={routes.home} element={
-          <Main 
-            cardData={postsData.postsData}
-            totalCount={totalCount}
-            requestLimit={requestLimit}
-            setSavedPostId={setSavedPostId}
-          />
+          <Main />
         }/>
         <Route path={routes.openLabel} element={
         <OpenLabel
           savedPostId={savedPostId}
-          cardData={cardData}
+          cardData={posts}
         />}/>
         <Route path={routes.signIn} element={<SignIn />}/>
       </Routes>
@@ -59,6 +54,7 @@ function App({
 const mapStateToProps = (state: any) => {
   return {
     setPostsData: state.setPostsData,
+    posts: state.postsData.postsData,
     ...state
   }
 }
