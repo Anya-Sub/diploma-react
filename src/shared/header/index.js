@@ -29,7 +29,8 @@ const Header = ({
     <header>
       <div className="All-info">
         <section className="All-info__logo">
-           <button className="All-info__logo__button"
+            <button 
+              className="All-info__logo__button"
               onClick={navigateToHome}
             >
               <img src={Logo} />
@@ -38,16 +39,16 @@ const Header = ({
         <section className="All-info__action">
           <div className="All-info__action__searching">
             <input 
-                type="search" 
-                id="site-search" 
-                onChange={(event) => handleSearch(event)}
-              />
+              type="search" 
+              id="site-search" 
+              onChange={(event) => handleSearch(event)}
+            />
             <img src={Search} />
           </div>
           <div className="All-info__action__registration">
             <button onClick={() => {
-                setUserLoggedIn()
-                checkIfUserIsLoggedIn()
+              setUserLoggedIn()
+              checkIfUserIsLoggedIn()
               }}>AM</button>
             <div className="All-info__action__registration__words">
                <p>Artem</p>

@@ -18,7 +18,7 @@
 
     &__word{
      font-size: 56px;
-     font-style: bold;
+     font-weight: 700;
     }
   }
 
@@ -29,10 +29,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 50px 0;
-    width: 400px;
-    height: 320px;
-    border-radius: 20px;
+    margin:  0;
+    width: 450px;
+    height: 330px;
+    border-radius: 15px;
 
     // &__account {
     //   display: flex;
@@ -41,7 +41,9 @@
     &__questions {
       display: flex;
       flex-direction: column;
-
+      margin-top: 5px;
+      width: 100%;
+      
       &__forgot {
         display: flex;
         justify-content: start;
@@ -50,19 +52,22 @@
         font-size: 14px;
         padding-bottom: 30px;
         padding-top: 8px;
+        margin-left: 20px;
       }
 
       &__account {
         display: flex;
         font-size: 12px;
         justify-content: center;
-        padding-top: 10px;
+        padding-top: 1px;
         align-items: center;
+        width: 100%;
         
 
         &__text {
           color:grey;
           margin: 0px;
+          
         }
 
         &__btn{
@@ -75,12 +80,13 @@
       }
 
       &__btn {
-        width: 300px;
-        height: 40px;
+        width: 90%;
+        height: 45px;
         border: none;
         background-color: rgba(108, 27, 219, 1);
         color: #E5E5E5;
         border-radius: 5px;
+        margin-left: 25px;
       }
     }
   }

@@ -24,14 +24,14 @@ main{
         width: 50%;
         height: 60px;
         margin-bottom: 0px;
-        border: none;
+        border: 1px solid  transparent;
         background-color:#E5E5E5 ;
         font-size: 16px;
         font-weight: 600;
         color: rgba(49, 48, 55, 1);
        }
        button:focus{
-        border-bottom: 1px solid  rgba(49, 48, 55, 1);;
+        border-bottom: 1px solid  rgba(49, 48, 55, 1);
        }
       }
       img{

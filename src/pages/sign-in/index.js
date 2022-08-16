@@ -17,17 +17,18 @@ const SignIn = () => {
       <main>
         <div className="sign-in">
           <div className='sign-in__title'>
-              <button className='sign-in__title__home'
-                onClick={navigateBackToHome}
-                >
-                Back to home
-              </button>
-              <h1 className='sign-in__tittle__word'>Sign In</h1>
+            <button 
+              className='sign-in__title__home'
+              onClick={navigateBackToHome}
+            >
+              Back to home
+            </button>
+            <h1 className='sign-in__tittle__word'>Sign In</h1>
           </div>
           <div className='sign-in__card'> 
             <SignInInput 
-                placeholder="Your email" 
-                label="Email" 
+              placeholder="Your email" 
+              label="Email" 
             />
             <SignInInput 
               placeholder="Your password" 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Theme } from "../../contsants/common";
 import {checkIsDarkTheme} from '../../redux/actions/setDarkTheme'
 import { getTheme } from "../../redux/selectors/theme";
+import Line from "../../pictures/line.png"
 
 const Footer = () => {
 const dispatch = useDispatch() 
@@ -12,18 +13,23 @@ const onChangeTheme = () => {
 }
     return (
       <footer>
-        <div className="all-info">
-          <div className="all-info__text"><p>©2022 Blogolog</p></div>
-          <div className="all-info__theme">
-            <p className="all-info__theme__text">Dark theme</p>
-            <button className="all-info__theme__button"
-            onClick={onChangeTheme}>
-              <label className="switch">
+        <div className="all">
+          <img src={Line} alt="Line" className="all-image"></img>
+          <div className="all-info">
+            <div className="all-info__text"><p>©2022 Blogolog</p></div>
+            <div className="all-info__theme">
+              <p className="all-info__theme__text">Dark theme</p>
+              <button 
+                className="all-info__theme__button"
+                onClick={onChangeTheme}
+              >
+                <label className="switch">
                   <input type="checkbox"/>
                   <span className="slider round"></span>
-              </label>
-            </button>
+                </label>
+              </button>
           </div>
+        </div>
         </div>
       </footer>
     )
