@@ -1,21 +1,23 @@
+import { useEffect, useState } from "react";
+
 import "./header.scss";
-import React, { useEffect } from "react"
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import  Search from "../../pictures/search.png";
 import Logo from "../../pictures/Logo.png";
 import { connect } from "react-redux";
 import { routes } from "../../contsants/routes";
 import { checkIfUserIsLoggedIn, setUserLoggedIn } from "../../redux/actions/isUserLoggedIn";
+import { user } from '../../contsants/localStorage';
 
 
 const Header = ({
   checkIfUserIsLoggedIn,
-  setUserLoggedIn,
   cardData,
   setPostsPerPage
 }) => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState('')
 
   const navigateToHome = () => {
     navigate(routes.home);
@@ -24,6 +26,14 @@ const Header = ({
   const handleSearch = (event) => {
     setPostsPerPage(cardData.filter((item) => item.title.includes(event.target.value)));
   };
+
+  useEffect(() => {
+    checkIfUserIsLoggedIn();
+
+    if (localStorage.getItem(user.email)) {
+      setUserName(localStorage.getItem(user.email))
+    }
+  }, [])
 
   return (
     <header>
@@ -46,13 +56,13 @@ const Header = ({
             <img src={Search} />
           </div>
           <div className="All-info__action__registration">
-            <button onClick={() => {
-              setUserLoggedIn()
-              checkIfUserIsLoggedIn()
-              }}>AM</button>
+            {userName &&
+              <div className="All-info__action__registration__short">
+                {userName?.toUpperCase()}
+              </div>
+            }
             <div className="All-info__action__registration__words">
-               <p>Artem</p>
-               <p>Malkhin</p>
+              <p>{userName}</p>
             </div>
           </div>
         </section>
@@ -70,8 +80,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkIfUserIsLoggedIn: () => checkIfUserIsLoggedIn(dispatch),
-    setUserLoggedIn: () => setUserLoggedIn(dispatch)
+    checkIfUserIsLoggedIn: () => checkIfUserIsLoggedIn(dispatch)
   }
 }
 

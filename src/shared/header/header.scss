@@ -42,7 +42,10 @@
       display: flex;
       width: 40%;
       align-items: center;
-      button{
+      &__short {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 40px;
         height: 35px;
         background: linear-gradient(133.87deg, #4D0AC7 -10.18%, #912EF2 108.59%);
